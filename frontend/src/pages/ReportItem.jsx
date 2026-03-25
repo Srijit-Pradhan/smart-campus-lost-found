@@ -4,6 +4,7 @@ import { useAuth } from '../context/AuthContext';
 import { UploadCloud, Image as ImageIcon, MapPin, Tag, Type, Calendar, AlertCircle } from 'lucide-react';
 import { motion } from 'framer-motion';
 import axios from 'axios';
+import { API_BASE_URL } from '../config/api';
 
 const ReportItem = ({ type }) => {
   const { user } = useAuth();
@@ -58,7 +59,7 @@ const ReportItem = ({ type }) => {
       submitData.append('image', image);
 
       // 2. Send POST request to our API
-      const response = await axios.post('http://localhost:5000/api/items', submitData, {
+      const response = await axios.post(`${API_BASE_URL}/items`, submitData, {
         headers: {
           'Content-Type': 'multipart/form-data',
           Authorization: `Bearer ${user.token}`

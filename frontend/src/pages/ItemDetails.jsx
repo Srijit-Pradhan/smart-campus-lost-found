@@ -4,6 +4,7 @@ import { useAuth } from '../context/AuthContext';
 import { Calendar, MapPin, Tag, Shield, MessageCircle, AlertCircle, CheckCircle } from 'lucide-react';
 import { motion } from 'framer-motion';
 import axios from 'axios';
+import { API_BASE_URL } from '../config/api';
 
 const ItemDetails = () => {
   const { id } = useParams();
@@ -18,7 +19,7 @@ const ItemDetails = () => {
   useEffect(() => {
     const fetchItem = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/api/items/${id}`);
+        const response = await axios.get(`${API_BASE_URL}/items/${id}`);
         setItem(response.data);
       } catch (err) {
         setError('Failed to load item details. It might have been deleted.');
@@ -34,7 +35,7 @@ const ItemDetails = () => {
   const handleContact = async () => {
     try {
       setLoadingChat(true);
-      const res = await axios.post(`http://localhost:5000/api/chats/item/${id}`, {}, {
+      const res = await axios.post(`${API_BASE_URL}/chats/item/${id}`, {}, {
         headers: { Authorization: `Bearer ${user.token}` }
       });
       navigate(`/chat/${res.data._id}`);
@@ -54,7 +55,7 @@ const ItemDetails = () => {
     setResolving(true);
     try {
       await axios.put(
-        `http://localhost:5000/api/items/${id}/status`,
+        `${API_BASE_URL}/items/${id}/status`,
         { status: 'resolved' },
         { headers: { Authorization: `Bearer ${user.token}` } }
       );

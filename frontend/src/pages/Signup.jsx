@@ -4,6 +4,7 @@ import { useAuth } from '../context/AuthContext';
 import { UserPlus, AlertCircle } from 'lucide-react';
 import { motion } from 'framer-motion';
 import axios from 'axios';
+import { API_BASE_URL } from '../config/api';
 
 const Signup = () => {
   const [formData, setFormData] = useState({
@@ -28,7 +29,7 @@ const Signup = () => {
     setLoading(true);
 
     try {
-      const response = await axios.post('http://localhost:5000/api/auth/register', formData);
+      const response = await axios.post(`${API_BASE_URL}/auth/register`, formData);
 
       // Save user to context and LocalStorage
       login(response.data);

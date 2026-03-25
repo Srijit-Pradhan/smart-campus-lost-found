@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { MessageSquare, Clock, AlertCircle } from 'lucide-react';
 import axios from 'axios';
 import { motion } from 'framer-motion';
+import { API_BASE_URL } from '../config/api';
 
 const Messages = () => {
   const { user } = useAuth();
@@ -13,7 +14,7 @@ const Messages = () => {
   useEffect(() => {
     const fetchChats = async () => {
       try {
-        const res = await axios.get('http://localhost:5000/api/chats', {
+        const res = await axios.get(`${API_BASE_URL}/chats`, {
           headers: { Authorization: `Bearer ${user.token}` }
         });
         setChats(res.data);

@@ -3,6 +3,7 @@ import { useAuth } from '../context/AuthContext';
 import { CheckCircle, Zap, History, AlertCircle, Clock } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import { API_BASE_URL } from '../config/api';
 
 const Dashboard = () => {
   const { user } = useAuth();
@@ -16,10 +17,10 @@ const Dashboard = () => {
     const fetchData = async () => {
       try {
         const [itemsRes, matchesRes] = await Promise.all([
-          axios.get('http://localhost:5000/api/items/me', {
+          axios.get(`${API_BASE_URL}/items/me`, {
             headers: { Authorization: `Bearer ${user.token}` }
           }),
-          axios.get('http://localhost:5000/api/matches', {
+          axios.get(`${API_BASE_URL}/matches`, {
             headers: { Authorization: `Bearer ${user.token}` }
           })
         ]);
@@ -50,7 +51,7 @@ const Dashboard = () => {
     setResolvingId(itemId);
     try {
       await axios.put(
-        `http://localhost:5000/api/items/${itemId}/status`,
+        `${API_BASE_URL}/items/${itemId}/status`,
         { status: 'resolved' },
         { headers: { Authorization: `Bearer ${user.token}` } }
       );
@@ -302,7 +303,7 @@ const MatchCard = ({ match, currentUser, onConfirmed }) => {
     setConfirming(true);
     try {
       await axios.put(
-        `http://localhost:5000/api/matches/${match._id}/confirm`,
+        `${API_BASE_URL}/matches/${match._id}/confirm`,
         {},
         { headers: { Authorization: `Bearer ${currentUser.token}` } }
       );

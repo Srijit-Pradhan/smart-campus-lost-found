@@ -5,6 +5,7 @@ import { useAuth } from '../context/AuthContext';
 import { Send, ArrowLeft, AlertCircle } from 'lucide-react';
 import { io } from 'socket.io-client';
 import axios from 'axios';
+import { API_BASE_URL, SOCKET_URL } from '../config/api';
 
 const Chat = () => {
   const { matchId, chatId } = useParams();
@@ -37,7 +38,7 @@ const Chat = () => {
 
   useEffect(() => {
     // 1. Initialize Socket
-    const newSocket = io('http://localhost:5000');
+    const newSocket = io(SOCKET_URL);
     setSocket(newSocket);
 
     // 2. Fetch Chat data and Messages from API
@@ -47,13 +48,13 @@ const Chat = () => {
         
         if (matchId) {
           // Get or Create Chat Room based on the match
-          const chatRes = await axios.get(`http://localhost:5000/api/chats/match/${matchId}`, {
+          const chatRes = await axios.get(`${API_BASE_URL}/chats/match/${matchId}`, {
             headers: { Authorization: `Bearer ${user.token}` }
           });
           chatData = chatRes.data;
         } else if (chatId) {
           // Get existing chat metadata
-          const chatRes = await axios.get(`http://localhost:5000/api/chats/${chatId}`, {
+          const chatRes = await axios.get(`${API_BASE_URL}/chats/${chatId}`, {
             headers: { Authorization: `Bearer ${user.token}` }
           });
           chatData = chatRes.data;
@@ -62,7 +63,7 @@ const Chat = () => {
         setChatRoom(chatData);
 
         // Fetch existing messages
-        const msgRes = await axios.get(`http://localhost:5000/api/chats/${chatData._id}/messages`, {
+        const msgRes = await axios.get(`${API_BASE_URL}/chats/${chatData._id}/messages`, {
           headers: { Authorization: `Bearer ${user.token}` }
         });
         
@@ -102,7 +103,7 @@ const Chat = () => {
     try {
       // Send to DB (Controller broadcasts via Socket.io)
       await axios.post(
-        `http://localhost:5000/api/chats/${chatRoom._id}/messages`,
+        `${API_BASE_URL}/chats/${chatRoom._id}/messages`,
         { content: newMessage },
         { headers: { Authorization: `Bearer ${user.token}` } }
       );
