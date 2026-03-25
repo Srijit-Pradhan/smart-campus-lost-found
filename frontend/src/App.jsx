@@ -46,8 +46,8 @@ function App() {
           </div>
         </main>
 
-        <footer className="mt-auto py-6 text-center text-sm text-slate-500 relative z-10 glass">
-          <p>©Smart Campus Lost & Found.</p>
+        <footer className="mt-auto py-6 text-center text-sm text-slate-500 relative z-10 glass select-none">
+          <p>Made by Srijit Pradhan ❤️</p>
         </footer>
       </div>
     </Router>
