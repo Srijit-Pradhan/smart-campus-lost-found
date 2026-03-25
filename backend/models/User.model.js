@@ -21,7 +21,10 @@ const userSchema = new mongoose.Schema(
     },
     collegeId: {
       type: String,
-      required: true, // Used to verify they belong to the campus
+      unique: true,
+      sparse: true, // Allow multiple null values
+      trim: true,
+      default: null,
     },
     trustScore: {
       type: Number,

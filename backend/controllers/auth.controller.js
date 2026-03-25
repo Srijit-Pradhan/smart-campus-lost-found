@@ -16,16 +16,17 @@ export const registerUser = async (req, res) => {
   try {
     const { name, email, password, collegeId } = req.body;
 
-    // Heritage IT Specific Validations
-    const emailRegex = /^[a-zA-Z]+(\.[a-zA-Z]+)+\.[a-zA-Z]{2,3}\d{2}@heritageit\.edu\.in$/;
+    // Allow any valid email format so external users can register too
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const rollNoRegex = /^\d{7}$/;
 
     if (!emailRegex.test(email)) {
-      return res.status(400).json({ message: 'Invalid email format. Must be firstname.lastname.branchYear@heritageit.edu.in' });
+      return res.status(400).json({ message: 'Invalid email format. Please enter a valid email address.' });
     }
 
-    if (!rollNoRegex.test(collegeId)) {
-      return res.status(400).json({ message: 'Invalid Roll Number. Must be a 7-digit number (e.g., 2352125)' });
+    // College ID is optional, but if provided, must be valid 7-digit number
+    if (collegeId && !rollNoRegex.test(collegeId)) {
+      return res.status(400).json({ message: 'Invalid Roll Number. Must be exactly 7 digits (e.g., 2352125)' });
     }
 
     // 1. Check if user already exists

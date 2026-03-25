@@ -45,18 +45,18 @@ const Login = () => {
       <motion.div 
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="glass-card w-full max-w-md p-8"
+        className="w-full max-w-md p-8 glass-card"
       >
-        <div className="text-center mb-8">
-          <div className="bg-primary-100 dark:bg-primary-900/30 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 text-primary-600">
+        <div className="mb-8 text-center">
+          <div className="flex items-center justify-center w-16 h-16 mx-auto mb-4 rounded-full bg-primary-100 dark:bg-primary-900/30 text-primary-600">
             <LogIn className="w-8 h-8" />
           </div>
           <h2 className="text-2xl font-bold">Welcome Back</h2>
-          <p className="text-slate-500 mt-2">Sign in to report or claim an item</p>
+          <p className="mt-2 text-slate-500">Sign in to report or claim an item</p>
         </div>
 
         {error && (
-          <div className="bg-red-50 text-red-600 p-4 rounded-xl flex items-start gap-3 mb-6">
+          <div className="flex items-start gap-3 p-4 mb-6 text-red-600 bg-red-50 rounded-xl">
             <AlertCircle className="w-5 h-5 flex-shrink-0 mt-0.5" />
             <p className="text-sm">{error}</p>
           </div>
@@ -64,29 +64,27 @@ const Login = () => {
 
         <form onSubmit={handleSubmit} className="space-y-5">
           <div>
-            <label className="block text-sm font-medium mb-2 text-slate-700 dark:text-slate-300">
+            <label className="block mb-2 text-sm font-medium text-slate-700 dark:text-slate-300">
               College Email
             </label>
             <input
               type="email"
               required
-              pattern="^[a-zA-Z]+(\.[a-zA-Z]+)+\.[a-zA-Z]{2,3}\d{2}@heritageit\.edu\.in$"
-              title="Format: first.last.branchYear@heritageit.edu.in (e.g., sree.majhi.ee27@heritageit.edu.in)"
-              className="w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-600 bg-white/50 dark:bg-slate-900/50 focus:ring-2 focus:ring-primary-500 outline-none transition-all"
-              placeholder="sree.majhi.ee27@heritageit.edu.in"
+              className="w-full px-4 py-3 transition-all border outline-none rounded-xl border-slate-300 dark:border-slate-600 bg-white/50 dark:bg-slate-900/50 focus:ring-2 focus:ring-primary-500"
+              placeholder="Enter your college email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium mb-2 text-slate-700 dark:text-slate-300">
+            <label className="block mb-2 text-sm font-medium text-slate-700 dark:text-slate-300">
               Password
             </label>
             <input
               type="password"
               required
-              className="w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-600 bg-white/50 dark:bg-slate-900/50 focus:ring-2 focus:ring-primary-500 outline-none transition-all"
+              className="w-full px-4 py-3 transition-all border outline-none rounded-xl border-slate-300 dark:border-slate-600 bg-white/50 dark:bg-slate-900/50 focus:ring-2 focus:ring-primary-500"
               placeholder="••••••••"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
@@ -96,19 +94,19 @@ const Login = () => {
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-primary-600 hover:bg-primary-700 text-white font-medium py-3 rounded-xl transition-all shadow-md hover:shadow-lg disabled:opacity-70 flex items-center justify-center gap-2"
+            className="flex items-center justify-center w-full gap-2 py-3 font-medium text-white transition-all shadow-md bg-primary-600 hover:bg-primary-700 rounded-xl hover:shadow-lg disabled:opacity-70"
           >
             {loading ? (
-              <span className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+              <span className="w-5 h-5 border-2 rounded-full border-white/30 border-t-white animate-spin" />
             ) : (
               'Sign In'
             )}
           </button>
         </form>
 
-        <p className="mt-6 text-center text-slate-500 text-sm">
+        <p className="mt-6 text-sm text-center text-slate-500">
           Don't have an account?{' '}
-          <Link to="/signup" className="text-primary-600 font-medium hover:underline">
+          <Link to="/signup" className="font-medium text-primary-600 hover:underline">
             Sign up
           </Link>
         </p>
