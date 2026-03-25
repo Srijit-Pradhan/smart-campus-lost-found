@@ -1,0 +1,84 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  margin: 0;
+}
+
+@layer base {
+  :root {
+    --background: #f8fafc; /* slate-50 */
+    --foreground: #0f172a; /* slate-900 */
+    --card: #ffffff;
+    --card-foreground: #0f172a;
+    --border: #e2e8f0; /* slate-200 */
+    
+    /* Premium accents */
+    --primary: #4f46e5;
+    --primary-foreground: #ffffff;
+    --secondary: #f1f5f9;
+    --secondary-foreground: #0f172a;
+    
+    --success: #10b981;
+    --danger: #ef4444;
+    --warning: #f59e0b;
+  }
+
+  .dark {
+    --background: #0f172a; /* slate-900 */
+    --foreground: #f8fafc; /* slate-50 */
+    --card: #1e293b; /* slate-800 */
+    --card-foreground: #f8fafc;
+    --border: #334155; /* slate-700 */
+    
+    --primary: #6366f1;
+    --primary-foreground: #ffffff;
+    --secondary: #1e293b;
+    --secondary-foreground: #f8fafc;
+  }
+}
+
+@layer base {
+  body {
+    @apply bg-[var(--background)] text-[var(--foreground)] transition-colors duration-300 min-h-screen;
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+  
+  #root {
+    @apply min-h-screen flex flex-col;
+  }
+}
+
+@layer utilities {
+  /* Premium Glassmorphism Effect */
+  .glass {
+    @apply bg-white/70 dark:bg-slate-900/70 backdrop-blur-md border border-white/20 dark:border-slate-700/50 shadow-lg;
+  }
+  
+  .glass-card {
+    @apply bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm border border-slate-200 dark:border-slate-700 shadow-md rounded-2xl hover:shadow-xl transition-all duration-300;
+  }
+
+  /* Smooth gradient backgrounds */
+  .bg-gradient-primary {
+    @apply bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500;
+  }
+}
+
+/* Custom Scrollbar for better aesthetics */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-slate-300 dark:bg-slate-600 rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-slate-400 dark:bg-slate-500;
+}
